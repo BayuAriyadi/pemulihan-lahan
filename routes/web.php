@@ -53,3 +53,7 @@ route::get('/admin', function () {
 route::get('/lokasi', function () {
     return view('lokasi',);
 });
+
+route::get('/editlahan', function () {
+    return view('editlahan',);
+});
