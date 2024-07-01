@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\IndoregionController;
+use App\Http\Controllers\LandRecoveryLocationController;
+use App\Models\LandRecoveryLocation;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,11 +56,38 @@ route::get('/lokasi', function () {
     return view('lokasi',);
 });
 
+route::get('/index', function () {
+    return view('index',);
+});
+
 route::get('/editlahan', function () {
     return view('editlahan',);
 });
 
 Route::get('/addlahan', [IndoregionController::class, 'addlahan']) -> name('addlahan');
+// Route::get('/lahan', [LandRecoveryLocation::class, 'index']) -> name('lahan');
 Route::post('/getkabupaten', [IndoregionController::class, 'getkabupaten']) -> name('getkabupaten');
 Route::post('/getkecamatan', [IndoregionController::class, 'getkecamatan']) -> name('getkecamatan');
 Route::post('/getdesa', [IndoregionController::class, 'getDesa'])->name('getdesa');
+
+Route::post('/addlahan', [LandRecoveryLocationController::class, 'store']);
+
+
+Route::resource('land_recovery_locations', LandRecoveryLocationController::class);
+
+Route::get('/getkabupaten/{id}', function($id) {
+    $kabupatens = \App\Models\Regency::where('province_id', $id)->pluck('name', 'id');
+    return response()->json($kabupatens);
+});
+
+Route::get('/getkecamatan/{id}', function($id) {
+    $kecamatans = \App\Models\District::where('regency_id', $id)->pluck('name', 'id');
+    return response()->json($kecamatans);
+});
+
+Route::get('/getdesa/{id}', function($id) {
+    $desas = \App\Models\Village::where('kecamatan_id', $id)->pluck('name', 'id');
+    return response()->json($desas);
+});
+
+

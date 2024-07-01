@@ -9,7 +9,8 @@
         <h6 class="m-0 font-weight-bold text-primary">Tambah Data Pemulihan Lahan</h6>
     </div>
     <div class="card-body">
-        <form>
+        <form method="POST" action="/insertdata" enctype="multipart/form-data">
+            @csrf
             <div class="row mb-3">
                 <label class="col-md-3 col-form-label" for="provinsi">Provinsi</label>
                 <div class="col-md-9">

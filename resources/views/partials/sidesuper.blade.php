@@ -62,7 +62,7 @@
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Daftar Lahan</h6>
-                <a class="collapse-item" href="/lahan">Daftar Tabel Lahan</a>
+                <a class="collapse-item" href="land_recovery_locations">Daftar Tabel Lahan</a>
                 <a class="collapse-item" href="addlahan">Input Data Lahan</a>
                 {{-- <h6 class="collapse-header">Other Pages:</h6> --}}
             </div>

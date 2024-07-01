@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\District;
+use App\Models\LandRecoveryLocation;
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\Village;
@@ -46,5 +47,12 @@ class IndoregionController extends Controller
         }
 
         return response()->json(['options' => $options]);
+    }
+
+    public function insertdata(Request $request) {
+        dd($request->all());
+        LandRecoveryLocation::create([
+            $request->all()
+        ]);
     }
 }
