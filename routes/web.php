@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\IndoregionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,7 +42,6 @@ route::get('/addlahan', function () {
     return view('addlahan');
 });
 
-
 route::get('/manual', function () {
     return view('manual');
 });
@@ -57,3 +57,6 @@ route::get('/lokasi', function () {
 route::get('/editlahan', function () {
     return view('editlahan',);
 });
+
+Route::get('/addlahan', [IndoregionController::class, 'addlahan']) -> name('region');
+Route::get('/getkabupaten', [IndoregionController::class, 'getkabupaten']) -> name('getkabupaten');

@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('land_recovery_locations', function (Blueprint $table) {
             $table->increments('LocationID');
             $table->integer('UserID')->unsigned();
-            $table->integer('DesaID')->unsigned();
+            $table->char('DesaID');
+            $table->string('provinsi');
+            $table->string('kabupaten');
+            $table->string('kecamatan');
+            $table->string('desa');
             $table->string('Alamat');
             $table->decimal('Latitude', 10, 7);
             $table->decimal('Longitude', 10, 7);
@@ -27,8 +31,8 @@ return new class extends Migration
 
             // Define foreign key constraints
             $table->foreign('UserID')->references('UserID')->on('users');
-            $table->foreign('DesaID')->references('DesaID')->on('desa');
             $table->foreign('BibitID')->references('BibitID')->on('bibit');
+            $table->foreign('DesaID')->references('id')->on('villages');
         });
     }
 
