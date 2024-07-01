@@ -58,5 +58,7 @@ route::get('/editlahan', function () {
     return view('editlahan',);
 });
 
-Route::get('/addlahan', [IndoregionController::class, 'addlahan']) -> name('region');
-Route::get('/getkabupaten', [IndoregionController::class, 'getkabupaten']) -> name('getkabupaten');
+Route::get('/addlahan', [IndoregionController::class, 'addlahan']) -> name('addlahan');
+Route::post('/getkabupaten', [IndoregionController::class, 'getkabupaten']) -> name('getkabupaten');
+Route::post('/getkecamatan', [IndoregionController::class, 'getkecamatan']) -> name('getkecamatan');
+Route::post('/getdesa', [IndoregionController::class, 'getDesa'])->name('getdesa');

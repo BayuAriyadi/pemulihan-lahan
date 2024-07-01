@@ -13,17 +13,11 @@
             <div class="row mb-3">
                 <label class="col-md-3 col-form-label" for="provinsi">Provinsi</label>
                 <div class="col-md-9">
-                    <!-- @foreach($provinces as $provinsi)
+                    @foreach($provinces as $provinsi)
                     <input class="form-control " name="provinsi" id="provinsi" placeholder="{{$provinsi->name}}" readonly>
                     @endforeach
 
-                    </input> -->
-                    <select class="form-control" name="provinsi" id="provinsi" required>
-                        <option>Pilih Provinsi</option>
-                        @foreach($provinces as $provinsi)
-                        <option value="{{$provinsi->id}}">{{$provinsi->name}}</option>
-                        @endforeach
-                    </select>
+                    </input>
 
                 </div>
             </div>
@@ -32,6 +26,9 @@
                 <div class="col-md-9">
                     <select class="form-control" name="kabupaten" id="kabupaten" required>
                         <option>Pilih Salah Kota..</option>
+                        @foreach($regencies as $kabupaten)
+                        <option value="{{$kabupaten->id}}">{{$kabupaten->name}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -113,29 +110,71 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         })
+
         $(function() {
-            $('#provinsi').on('change', function() {
-                let id_provinsi = $('#provinsi').val();
-                console.log('ini adalah id '+ id_provinsi);
+            // $('#kabupaten').on('change', function() {
+
+            //     let id_kabupaten = $('#kabupaten').val();
+            //     console.log('ini adalah id '+ id_kabupaten);
+
+            //     $.ajax({
+            //         type: 'POST',
+            //         url: "{{route('getkecamatan')}}",
+            //         data: {id_kabupaten:id_kabupaten},
+            //         cache: false,
+
+            //         sucess: console.log(
+
+            //         ) ,function(msg) {
+            //             $('#kecamatan').html(msg);
+            //         },
+            //         error: function(data) {
+            //             console.log('error', data);
+            //         }
+            //     })
+            // })
+
+            $('#kabupaten').on('change', function() {
+                let id_kabupaten = $(this).val();
+                console.log('ini adalah id ' + id_kabupaten);
 
                 $.ajax({
                     type: 'POST',
-                    url: "{{route('getkabupaten')}}",
+                    url: "{{ route('getkecamatan') }}",
                     data: {
-                        id_provinsi: id_provinsi
+                        id_kabupaten: id_kabupaten
                     },
                     cache: false,
-
-                    sucess: function(msg) {
-                        $('#kabupaten').html(msg);
-                        $('#kecamatan').html('');
-                        $('#desa').html('');
+                    success: function(response) {
+                        console.log('sukses', response);
+                        $('#kecamatan').html(response.options);
                     },
                     error: function(data) {
                         console.log('error', data);
                     }
-                })
-            })
+                });
+            });
+
+            $('#kecamatan').on('change', function() {
+                let id_kecamatan = $(this).val();
+                console.log('ini adalah id ' + id_kecamatan);
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('getdesa') }}",
+                    data: {
+                        id_kecamatan: id_kecamatan
+                    },
+                    cache: false,
+                    success: function(response) {
+                        console.log('sukses', response);
+                        $('#desa').html(response.options);
+                    },
+                    error: function(data) {
+                        console.log('error', data);
+                    }
+                });
+            });
         })
     })
 
