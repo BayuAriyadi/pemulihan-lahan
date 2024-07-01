@@ -11,14 +11,14 @@
     <div class="card-body">
         <form>
             <div class="row mb-3">
-                <label class="col-md-3 col-form-label" for="kabupaten">Provinsi</label>
+                <label class="col-md-3 col-form-label" for="provinsi">Provinsi</label>
                 <div class="col-md-9">
                     <!-- @foreach($provinces as $provinsi)
                     <input class="form-control " name="provinsi" id="provinsi" placeholder="{{$provinsi->name}}" readonly>
                     @endforeach
 
                     </input> -->
-                    <select class="form-control" name="kabupaten" id="kabupaten" required>
+                    <select class="form-control" name="provinsi" id="provinsi" required>
                         <option>Pilih Provinsi</option>
                         @foreach($provinces as $provinsi)
                         <option value="{{$provinsi->id}}">{{$provinsi->name}}</option>
@@ -116,6 +116,7 @@
         $(function() {
             $('#provinsi').on('change', function() {
                 let id_provinsi = $('#provinsi').val();
+                console.log('ini adalah id '+ id_provinsi);
 
                 $.ajax({
                     type: 'POST',

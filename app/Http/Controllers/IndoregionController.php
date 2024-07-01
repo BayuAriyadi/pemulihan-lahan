@@ -23,6 +23,7 @@ class IndoregionController extends Controller
     public function getkabupaten(Request $request) {
         $id_provinsi = $request->id_provinsi;
 
+        
         $kabupatens = Regency::where('province_id', $id_provinsi)->get();
         foreach ($kabupatens as $kabupaten) {
             echo "<option value='$kabupaten->id'>$kabupaten->name</option>";
