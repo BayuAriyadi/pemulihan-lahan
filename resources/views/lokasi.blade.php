@@ -1,18 +1,19 @@
 @extends('layout.main')
 @section('container')
-   <!-- DataTales Example -->
-   <div class="card shadow mb-4">
+<div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Tambah Data Pemulihan Lahan</h6>
     </div>
     <div class="card-body">
         <form id="form-wilayah">
             <div class="row mb-3">
-                <label class="col-md-3 col-form-label" for="kabupaten">Kabupaten / Kota</label>
+                <label class="col-md-3 col-form-label" for="location">Kabupaten / Kota</label>
                 <div class="col-md-9 input-group">
-                    <select class="form-control" name="kabupaten" id="kabupaten" required>
+                    <select class="form-control" name="location" id="location" required>
                         <option value="">Pilih Data Lahan</option>
-                        <!-- List of options dynamically populated -->
+                        @foreach($locations as $location)
+                            <option value="{{ $location->LocationID }}" data-kml="{{ asset('storage/' . $location->KMLFile) }}" data-lat="{{ $location->Latitude }}" data-lng="{{ $location->Longitude }}">{{ $location->kabupaten }} - {{ $location->desa }}</option>
+                        @endforeach
                     </select>
                     <div class="input-group-append">
                         <button type="button" class="btn btn-primary" id="btn-cari">Cari</button>
@@ -25,30 +26,51 @@
 
 <div id="map" class="rounded-3 shadow p-3 mb-5 bg-white rounded" style="height: 500px;"></div>
 
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-omnivore@0.3.4/leaflet-omnivore.min.js"></script>
 <script type="text/javascript">
-    // Initialize the map
+document.addEventListener('DOMContentLoaded', function () {
     var L = window.L;
-    const map = new L.Map('map').setView([0, 0], 2);
+    var kmlMap = L.map('map').setView([0, 0], 2);
 
-    // Add OpenStreetMap tiles
-    const osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
-    map.addLayer(osm);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(kmlMap);
 
-    // Load KML file
-    fetch('assets/lingkunganhidup.kml')
-        .then(res => res.text())
-        .then(kmltext => {
-            // Create a new KML overlay
-            const parser = new DOMParser();
-            const kml = parser.parseFromString(kmltext, 'text/xml');
-            const track = new L.KML(kml);
-            map.addLayer(track);
+    document.getElementById('btn-cari').addEventListener('click', function () {
+        const locationSelect = document.getElementById('location');
+        const selectedOption = locationSelect.options[locationSelect.selectedIndex];
 
-            // Adjust map to show the KML
-            const bounds = track.getBounds();
-            map.fitBounds(bounds);
-        })
-        .catch(error => console.error('Error loading KML file:', error));
+        if (selectedOption.value) {
+            const kmlUrl = selectedOption.getAttribute('data-kml');
+            const lat = parseFloat(selectedOption.getAttribute('data-lat'));
+            const lng = parseFloat(selectedOption.getAttribute('data-lng'));
+
+            console.log('Selected KML URL:', kmlUrl);
+            console.log('Latitude:', lat);
+            console.log('Longitude:', lng);
+
+            // Hapus semua layer kecuali tile layer
+            kmlMap.eachLayer(function (layer) {
+                if (!(layer instanceof L.TileLayer)) {
+                    kmlMap.removeLayer(layer);
+                }
+            });
+
+            // Inisialisasi ulang peta
+            kmlMap.setView([lat, lng], 10);
+
+            // Muat dan tambahkan layer KML ke peta menggunakan Leaflet-omnivore
+            omnivore.kml(kmlUrl)
+                .on('ready', function() {
+                    kmlMap.fitBounds(this.getBounds());
+                })
+                .on('error', function(e) {
+                    console.error('Error loading KML:', e);
+                })
+                .addTo(kmlMap);
+        }
+    });
+});
 </script>
-
 @endsection

@@ -10,11 +10,17 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@yield('title', 'Aplikasi Lahan')</title>
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <!-- fonts-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!--styles-->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -23,17 +29,44 @@
     <link rel="icon" href="{{ asset('/img/favicon.ico')}}" ">
 
     <!--leaflet-->
-    <link href="/css/map.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <link href=" /css/map.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!--leaflet js-->
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-        integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
     <script src="{{ asset('js/kml.js') }}"></script>
+    <script src="L.KML.js"></script>
+
+    <link rel="stylesheet" href="http://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+    <script src="http://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+    <script src="./L.KML.js"></script>
+
+    <style>
+        .thumbnail {
+            width: 100px;
+            /* Ukuran thumbnail kecil */
+            height: auto;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            /* Transisi untuk efek perbesar */
+        }
+
+        .thumbnail.large {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 45%;
+            /* Ukuran ketika diperbesar */
+            height: auto;
+            transform: translate(-50%, -50%) scale(1.0);
+            /* Efek perbesar dan pusatkan gambar */
+            z-index: 1000;
+        }
+    </style>
+
 
 
 
@@ -41,6 +74,13 @@
 </head>
 
 <body id="page-top">
+
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/popper.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <!-- Custom JS -->
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -83,8 +123,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

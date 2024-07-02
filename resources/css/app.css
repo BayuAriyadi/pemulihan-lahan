@@ -1,0 +1,15 @@
+<style>
+    .thumbnail {
+        width: 100px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .thumbnail.large {
+        position: absolute;
+        width: 500px;
+        height: auto;
+        z-index: 1000;
+        transform: scale(1.5);
+    }
+</style>

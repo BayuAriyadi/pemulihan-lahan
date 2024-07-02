@@ -48,11 +48,4 @@ class IndoregionController extends Controller
 
         return response()->json(['options' => $options]);
     }
-
-    public function insertdata(Request $request) {
-        dd($request->all());
-        LandRecoveryLocation::create([
-            $request->all()
-        ]);
-    }
 }

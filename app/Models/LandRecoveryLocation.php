@@ -28,6 +28,23 @@ class LandRecoveryLocation extends Model
         'KMLFile',
     ];
 
+    protected $table = 'land_recovery_locations';
+
+    public function regency()
+    {
+        return $this->belongsTo(Regency::class, 'kabupaten', 'id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class, 'kecamatan', 'id');
+    }
+
+    public function village()
+    {
+        return $this->belongsTo(Village::class, 'desa', 'id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'UserID');
