@@ -15,7 +15,7 @@
         <form method="POST" action="{{ isset($location) ? route('lahan.update', $location->LocationID) : route('lahan.store') }}" enctype="multipart/form-data">
             @csrf
             @if(isset($location))
-                @method('PUT')
+            @method('PUT')
             @endif
             <div class="row mb-3">
                 <label class="col-md-3 col-form-label" for="provinsi">Provinsi</label>
@@ -55,6 +55,10 @@
                         @endif
                     </select>
                 </div>
+            </div>
+            <div class="mb-3">
+                <label for="nama_lokasi" class="form-label">Nama Lokasi</label>
+                <input type="text" class="form-control" id="nama_lokasi" name="nama_lokasi" value="{{ isset($location) ? $location->nama_lokasi : '' }}" required>
             </div>
             <div class="form-group">
                 <label for="inputAlamat">Alamat</label>
@@ -126,7 +130,9 @@
             $.ajax({
                 type: 'POST',
                 url: "{{ route('getkecamatan') }}",
-                data: { id_kabupaten: id_kabupaten },
+                data: {
+                    id_kabupaten: id_kabupaten
+                },
                 cache: false,
                 success: function(response) {
                     $('#kecamatan').html(response.options);
@@ -142,7 +148,9 @@
             $.ajax({
                 type: 'POST',
                 url: "{{ route('getdesa') }}",
-                data: { id_kecamatan: id_kecamatan },
+                data: {
+                    id_kecamatan: id_kecamatan
+                },
                 cache: false,
                 success: function(response) {
                     $('#desa').html(response.options);

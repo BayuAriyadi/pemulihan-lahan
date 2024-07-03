@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,6 +25,7 @@ class LandRecoveryLocation extends Model
         'BibitID',
         'Dokumentasi',
         'KMLFile',
+        'nama_lokasi', // Tambahkan ini
     ];
 
     protected $table = 'land_recovery_locations';

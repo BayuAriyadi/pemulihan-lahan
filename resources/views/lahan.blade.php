@@ -20,6 +20,7 @@
                         <th>Kabupaten</th>
                         <th>Kecamatan</th>
                         <th>Desa</th>
+                        <th>Nama Lokasi</th>
                         <th>Alamat</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
@@ -39,6 +40,7 @@
                         <td>{{ $location->regency->name }}</td>
                         <td>{{ $location->district->name }}</td>
                         <td>{{ $location->village->name }}</td>
+                        <td>{{ $location->nama_lokasi}}</td>
                         <td>{{ $location->Alamat }}</td>
                         <td>{{ $location->Latitude }}</td>
                         <td>{{ $location->Longitude }}</td>

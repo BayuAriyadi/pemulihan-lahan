@@ -64,6 +64,7 @@ class LocationController extends Controller
         $location->LuasLahan = $request->LuasLahan;
         $location->JumlahBibit = $request->JumlahBibit;
         $location->BibitID = $request->JenisBibit;
+        $location->nama_lokasi = $request->nama_lokasi; 
 
         if ($request->hasFile('inputFoto')) {
             $path = $request->file('inputFoto')->store('public');
@@ -94,6 +95,7 @@ class LocationController extends Controller
         $location->LuasLahan = $request->LuasLahan;
         $location->JumlahBibit = $request->JumlahBibit;
         $location->BibitID = $request->JenisBibit;
+        $location->nama_lokasi = $request->nama_lokasi; 
 
         if ($request->hasFile('inputFoto')) {
             $path = $request->file('inputFoto')->store('public');

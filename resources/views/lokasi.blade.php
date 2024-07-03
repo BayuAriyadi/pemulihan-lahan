@@ -12,8 +12,9 @@
                     <select class="form-control" name="location" id="location" required>
                         <option value="">Pilih Data Lahan</option>
                         @foreach($locations as $location)
-                            <option value="{{ $location->LocationID }}" data-kml="{{ asset('storage/' . $location->KMLFile) }}" data-lat="{{ $location->Latitude }}" data-lng="{{ $location->Longitude }}">{{ $location->kabupaten }} - {{ $location->desa }}</option>
+                            <option value="{{ $location->LocationID }}" data-kml="{{ asset('storage/' . $location->KMLFile) }}" data-lat="{{ $location->Latitude }}" data-lng="{{ $location->Longitude }}">{{ $location->nama_lokasi }}</option>
                         @endforeach
+
                     </select>
                     <div class="input-group-append">
                         <button type="button" class="btn btn-primary" id="btn-cari">Cari</button>
@@ -73,4 +74,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
+<!-- Tambahkan ini di bagian <head> atau sebelum penutup </body> -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 @endsection

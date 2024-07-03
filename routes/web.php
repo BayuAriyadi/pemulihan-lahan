@@ -2,10 +2,8 @@
 
 use App\Http\Controllers\IndoregionController;
 use App\Http\Controllers\KecamatanController;
-use App\Http\Controllers\LandRecoveryLocationController;
-use App\Http\Controllers\Location;
-use App\Http\Controllers\LocationController;
-use App\Models\LandRecoveryLocation;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LocationController; 
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('layout/main');
+    return view('login');
 });
 
 Route::get('login', function () {
@@ -89,6 +87,25 @@ Route::delete('/lahan/{id}', [LocationController::class, 'destroy'])->name('laha
 Route::get('/lokasi', [LocationController::class, 'showLocations'])->name('locations.show');
 Route::get('/lokasi/{id}/kml', [LocationController::class, 'getKMLFile'])->name('location.kml');
 
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::get('/user', [AuthController::class, 'index'])->name('users.index');
+Route::get('/user/form/{id?}', [AuthController::class, 'showForm'])->name('users.form');
+Route::post('/user/save/{id?}', [AuthController::class, 'save'])->name('users.save');
+Route::delete('/user/{id}', [AuthController::class, 'destroy'])->name('users.destroy');
+Route::get('/adduser', [AuthController::class, 'tambahUser']);
+Route::get('/dashboard', [AuthController::class, 'dash']);
+
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth');
 
 
 
